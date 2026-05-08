@@ -43,10 +43,26 @@ python -m pip install -e ".[dev]"
 python -m pip install -r requirements.txt
 ```
 
-Then run with Python module syntax:
+Then run with Python module syntax from the repository root:
 
 ```bash
 python -m py_yt_video_downloader --help
+```
+
+You can also run the checkout by filesystem path without installing it:
+
+```bash
+python /path/to/py-yt-video-downloader --help
+python /path/to/py-yt-video-downloader/py_yt_video_downloader --help
+```
+
+> **Note:** Python's `-m` flag accepts an importable module name, not a filesystem path. Use `python -m py_yt_video_downloader` from the repository root, or omit `-m` when running a full path.
+
+On Windows, the same examples work with the Python Launcher by replacing `python` with `py`, for example:
+
+```powershell
+py C:\Users\Tanner\codebase\py-yt-video-downloader --help
+py C:\Users\Tanner\codebase\py-yt-video-downloader\py_yt_video_downloader --help
 ```
 
 ## Usage
@@ -264,9 +280,19 @@ Run the CLI locally without installing the console script:
 python -m py_yt_video_downloader "https://youtu.be/VIDEO_ID" -o ./downloads
 ```
 
+Run a checkout by full filesystem path. This is useful when your terminal is not currently inside the repository:
+
+```bash
+python /path/to/py-yt-video-downloader "https://youtu.be/VIDEO_ID" -o ./downloads
+python /path/to/py-yt-video-downloader/py_yt_video_downloader "https://youtu.be/VIDEO_ID" -o ./downloads
+```
+
+Do not combine `-m` with a filesystem path. For example, `python -m /path/to/py_yt_video_downloader` fails because `-m` expects a module name such as `py_yt_video_downloader`.
+
 ## Project structure
 
 ```text
+__main__.py
 pyproject.toml
 requirements.txt
 README.md
@@ -279,5 +305,6 @@ py_yt_video_downloader/
   validation.py
 tests/
   test_cli.py
+  test_entrypoints.py
   test_validation.py
 ```
